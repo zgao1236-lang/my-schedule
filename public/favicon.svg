@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+  <!-- Calendar top bar -->
+  <rect x="80" y="100" width="352" height="56" rx="8" fill="rgba(255,255,255,0.25)"/>
+  <!-- Two pins -->
+  <rect x="160" y="76" width="16" height="48" rx="8" fill="white"/>
+  <rect x="336" y="76" width="16" height="48" rx="8" fill="white"/>
+  <!-- Calendar body -->
+  <rect x="80" y="168" width="352" height="260" rx="8" fill="rgba(255,255,255,0.15)"/>
+  <!-- Grid dots -->
+  <circle cx="152" cy="228" r="16" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="256" cy="228" r="16" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="360" cy="228" r="16" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="152" cy="308" r="16" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="256" cy="308" r="16" fill="white"/>
+  <circle cx="256" cy="308" r="28" fill="none" stroke="white" stroke-width="4"/>
+  <circle cx="360" cy="308" r="16" fill="rgba(255,255,255,0.8)"/>
+  <circle cx="152" cy="388" r="16" fill="rgba(255,255,255,0.5)"/>
+  <circle cx="256" cy="388" r="16" fill="rgba(255,255,255,0.5)"/>
+</svg>

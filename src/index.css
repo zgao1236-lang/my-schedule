@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/*
+ * Design System
+ * ─────────────
+ * Spacing: 4px grid → p-1(4) p-2(8) p-3(12) p-4(16) p-5(20) p-6(24)
+ * Radii : sm=8 md=12 lg=16 xl=20 full
+ * Type  : xs=11 sm=13 base=15 lg=17 xl=20 2xl=28 3xl=34
+ * Icons : sm=16 md=20 lg=24
+ * Stroke: 1.6 (default), 2 (active/emphasis)
+ */
+
+@theme {
+  --color-apple-red: #FF3B30;
+  --color-apple-orange: #FF9500;
+  --color-apple-green: #34C759;
+  --color-apple-blue: #007AFF;
+  --color-apple-indigo: #5856D6;
+  --color-apple-purple: #AF52DE;
+  --color-apple-pink: #FF2D55;
+  --color-apple-teal: #5AC8FA;
+  --color-apple-mint: #00C7BE;
+
+  --color-apple-bg: var(--c-bg);
+  --color-apple-card: var(--c-card);
+  --color-apple-separator: var(--c-separator);
+  --color-apple-label: var(--c-label);
+  --color-apple-label-secondary: var(--c-label-secondary);
+  --color-apple-label-tertiary: var(--c-label-tertiary);
+}
+
+/* ── Light ── */
+:root {
+  --c-bg: #F0F0F5;
+  --c-card: #FFFFFF;
+  --c-separator: rgba(60, 60, 67, 0.10);
+  --c-label: #1C1C1E;
+  --c-label-secondary: #6E6E73;
+  --c-label-tertiary: #AEAEB2;
+  --c-glass: rgba(246, 246, 250, 0.82);
+  --c-input: rgba(120, 120, 128, 0.08);
+  --c-shadow-a: rgba(0, 0, 0, 0.06);
+  --c-shadow-b: rgba(0, 0, 0, 0.03);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  color-scheme: light dark;
+}
+
+/* ── Dark ── */
+html.dark {
+  --c-bg: #000000;
+  --c-card: #1C1C1E;
+  --c-separator: rgba(84, 84, 88, 0.36);
+  --c-label: #F5F5F7;
+  --c-label-secondary: #98989D;
+  --c-label-tertiary: #48484A;
+  --c-glass: rgba(30, 30, 32, 0.82);
+  --c-input: rgba(120, 120, 128, 0.20);
+  --c-shadow-a: rgba(0, 0, 0, 0.40);
+  --c-shadow-b: rgba(0, 0, 0, 0.20);
+}
+
+/* ── Base ── */
+* { -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--c-bg);
+  color: var(--c-label);
+  overscroll-behavior-y: none;
+  line-height: 1.4;
+}
+
+#root { min-height: 100dvh; }
+::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ── Shared classes ── */
+.glass {
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: var(--c-glass);
+}
+
+.card {
+  background: var(--c-card);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 0.5px var(--c-separator),
+    0 2px 8px var(--c-shadow-b),
+    0 8px 24px var(--c-shadow-b);
+}
+
+.card-sm {
+  background: var(--c-card);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 0.5px var(--c-separator),
+    0 1px 4px var(--c-shadow-b);
+}
+
+.card-elevated {
+  background: var(--c-card);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 16px var(--c-shadow-a),
+    0 12px 40px var(--c-shadow-b);
+}
+
+.input-bg { background: var(--c-input); }
+
+.sep { height: 0.5px; background: var(--c-separator); }
+
+.press {
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.press:active {
+  transform: scale(0.975);
+  opacity: 0.65;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.page-enter { animation: fadeUp 0.28s cubic-bezier(0.22, 1, 0.36, 1); }
+.sheet-enter { animation: slideUp 0.34s cubic-bezier(0.32, 0.72, 0, 1); }
+
+/* Gradients */
+.grad-blue   { background: linear-gradient(135deg, #007AFF, #5AC8FA); }
+.grad-green  { background: linear-gradient(135deg, #34C759, #30D158); }
+.grad-orange { background: linear-gradient(135deg, #FF9500, #FFCC00); }
+.grad-red    { background: linear-gradient(135deg, #FF3B30, #FF6961); }
+.grad-indigo { background: linear-gradient(135deg, #5856D6, #AF52DE); }
