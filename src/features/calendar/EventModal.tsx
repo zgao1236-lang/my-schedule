@@ -20,7 +20,7 @@ export function EventModal() {
   const [startTime, setStartTime] = useState('09:00')
   const [endTime, setEndTime] = useState('10:00')
   const [period, setPeriod] = useState<Period>('morning')
-  const [color, setColor] = useState(PRESET_COLORS[0])
+  const [color, setColor] = useState<string>(PRESET_COLORS[0])
   const [description, setDescription] = useState('')
   const [reminderMinutes, setReminderMinutes] = useState<number | null>(null)
   const [closing, setClosing] = useState(false)

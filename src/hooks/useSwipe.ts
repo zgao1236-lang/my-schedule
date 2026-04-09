@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react'
+import { useRef } from 'react'
 
 interface SwipeHandlers {
   onTouchStart: (e: React.TouchEvent) => void
@@ -13,33 +13,10 @@ export function useSwipe(
 ): SwipeHandlers {
   const startX = useRef(0)
   const startY = useRef(0)
+  const lastX = useRef(0)
   const swiping = useRef(false)
 
-  const onTouchStart = useCallback((e: React.TouchEvent) => {
-    startX.current = e.touches[0].clientX
-    startY.current = e.touches[0].clientY
-    swiping.current = false
-  }, [])
-
-  const onTouchMove = useCallback((e: React.TouchEvent) => {
-    const dx = e.touches[0].clientX - startX.current
-    const dy = e.touches[0].clientY - startY.current
-    // Only count horizontal swipes (ignore vertical scroll)
-    if (Math.abs(dx) > Math.abs(dy) * 1.5 && Math.abs(dx) > 20) {
-      swiping.current = true
-    }
-  }, [])
-
-  const onTouchEnd = useCallback(() => {
-    if (!swiping.current) return
-    const dx = startX.current // we need the final position, but we only stored start
-    // We'll use a simpler approach: just track in touchend
-  }, [])
-
-  // Simplified: use ref to track final position
-  const lastX = useRef(0)
-
-  const handlers: SwipeHandlers = {
+  return {
     onTouchStart: (e) => {
       startX.current = e.touches[0].clientX
       startY.current = e.touches[0].clientY
@@ -61,6 +38,4 @@ export function useSwipe(
       else if (dx < -threshold) onSwipeLeft()
     },
   }
-
-  return handlers
 }

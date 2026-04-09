@@ -10,7 +10,7 @@ import { useSwipe } from '../../hooks/useSwipe'
 const WD = ['一', '二', '三', '四', '五', '六', '日']
 
 export function WeekView() {
-  const { weekStart, selectedDate, setSelectedDate, setViewMode, prevWeek, nextWeek } = useCalendarStore()
+  const { weekStart, setSelectedDate, setViewMode, prevWeek, nextWeek } = useCalendarStore()
   const events = useEventStore((s) => s.events)
   const swipeHandlers = useSwipe(nextWeek, prevWeek)
 

@@ -145,7 +145,7 @@ export function SearchPage() {
             <div>
               <SectionTitle right={`${results.events.length} 条`}>日程</SectionTitle>
               <div className="card overflow-hidden">
-                {results.events.map((e, idx, arr) => (
+                {results.events.map((e, idx) => (
                   <div key={e.id}>
                     {idx > 0 && <div className="sep ml-4" />}
                     <div className="flex items-center gap-3 px-4 py-3 press" onClick={() => goEvent(e)}>
