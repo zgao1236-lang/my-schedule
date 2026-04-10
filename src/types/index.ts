@@ -54,14 +54,23 @@ export type TabType = 'calendar' | 'notes' | 'reminders' | 'search'
 
 export type CalendarViewMode = 'month' | 'week' | 'day'
 
-export const PRESET_COLORS = [
-  '#007AFF',
-  '#FF3B30',
-  '#34C759',
-  '#FF9500',
-  '#AF52DE',
-  '#5856D6',
+export const GCAL_COLORS = [
+  { name: '默认蓝', hex: '#4285F4' },
+  { name: '番茄红', hex: '#D50000' },
+  { name: '火烈鸟', hex: '#E67C73' },
+  { name: '橘橙色', hex: '#F4511E' },
+  { name: '香蕉黄', hex: '#F6BF26' },
+  { name: '鼠尾草', hex: '#33B679' },
+  { name: '罗勒绿', hex: '#0B8043' },
+  { name: '孔雀蓝', hex: '#039BE5' },
+  { name: '蓝莓蓝', hex: '#3F51B5' },
+  { name: '薰衣草', hex: '#7986CB' },
+  { name: '葡萄紫', hex: '#8E24AA' },
+  { name: '石墨灰', hex: '#616161' },
 ] as const
+
+export const PRESET_COLORS = GCAL_COLORS.map((c) => c.hex)
+export const DEFAULT_EVENT_COLOR = '#4285F4'
 
 export const REMINDER_OPTIONS = [
   { label: '不提醒', value: null },

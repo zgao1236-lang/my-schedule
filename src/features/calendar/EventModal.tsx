@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useCalendarStore } from '../../stores/useCalendarStore'
 import { useEventStore } from '../../stores/useEventStore'
 import { getPeriodFromTime, todayStr } from '../../utils/date'
-import { PRESET_COLORS, REMINDER_OPTIONS } from '../../types'
+import { GCAL_COLORS, REMINDER_OPTIONS, DEFAULT_EVENT_COLOR } from '../../types'
 import type { Period } from '../../types'
 
 const PERIODS: { value: Period; label: string; icon: string }[] = [
@@ -20,7 +20,7 @@ export function EventModal() {
   const [startTime, setStartTime] = useState('09:00')
   const [endTime, setEndTime] = useState('10:00')
   const [period, setPeriod] = useState<Period>('morning')
-  const [color, setColor] = useState<string>(PRESET_COLORS[0])
+  const [color, setColor] = useState<string>(DEFAULT_EVENT_COLOR)
   const [description, setDescription] = useState('')
   const [reminderMinutes, setReminderMinutes] = useState<number | null>(null)
   const [closing, setClosing] = useState(false)
@@ -41,7 +41,7 @@ export function EventModal() {
       const s = modalDefaultPeriod === 'afternoon' ? '13:00' : modalDefaultPeriod === 'evening' ? '19:00' : '09:00'
       const e = modalDefaultPeriod === 'afternoon' ? '14:00' : modalDefaultPeriod === 'evening' ? '20:00' : '10:00'
       setStartTime(s); setEndTime(e)
-      setPeriod(modalDefaultPeriod || 'morning'); setColor(PRESET_COLORS[0])
+      setPeriod(modalDefaultPeriod || 'morning'); setColor(DEFAULT_EVENT_COLOR)
       setDescription(''); setReminderMinutes(null)
     }
   }, [modalOpen, editingEvent, modalDefaultDate, modalDefaultPeriod])
@@ -129,23 +129,20 @@ export function EventModal() {
               </div>
             </div>
 
-            {/* Color */}
+            {/* Color — Google Calendar 12-color picker */}
             <div className="input-bg rounded-xl px-4 py-3.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[15px] text-apple-label">颜色</span>
-                <div className="flex gap-3">
-                  {PRESET_COLORS.map((c) => (
-                    <button key={c} onClick={() => setColor(c)}
-                      className="relative w-7 h-7 rounded-full active:scale-90 transition-transform"
-                      style={{ backgroundColor: c }}>
-                      {color === c && (
-                        <svg className="absolute inset-0 m-auto w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                        </svg>
-                      )}
-                    </button>
-                  ))}
-                </div>
+              <span className="text-[15px] text-apple-label block mb-2.5">颜色标签</span>
+              <div className="grid grid-cols-6 gap-2.5 justify-items-center">
+                {GCAL_COLORS.map((c) => (
+                  <button key={c.hex} onClick={() => setColor(c.hex)}
+                    className="relative w-6 h-6 rounded-full active:scale-90 transition-all"
+                    style={{
+                      backgroundColor: c.hex,
+                      boxShadow: color === c.hex ? `0 0 0 2px var(--c-card), 0 0 0 3.5px ${c.hex}` : 'none',
+                    }}
+                    title={c.name}
+                  />
+                ))}
               </div>
             </div>
 
