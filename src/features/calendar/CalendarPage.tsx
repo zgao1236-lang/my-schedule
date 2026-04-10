@@ -76,7 +76,7 @@ export function CalendarPage() {
         {viewMode === 'month' && <MonthView />}
       </div>
       {viewMode === 'week' && (
-        <div className="px-5 pt-3 pb-5">
+        <div className="bg-white">
           <WeekView />
         </div>
       )}

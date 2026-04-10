@@ -12,6 +12,7 @@ interface CalendarState {
   modalOpen: boolean
   modalDefaultDate: string | null
   modalDefaultPeriod: 'morning' | 'afternoon' | 'evening' | null
+  modalDefaultStartTime: string | null
 
   setViewMode: (mode: CalendarViewMode) => void
   setSelectedDate: (date: string) => void
@@ -22,7 +23,7 @@ interface CalendarState {
   nextWeek: () => void
   prevDay: () => void
   nextDay: () => void
-  openAddModal: (date?: string, period?: 'morning' | 'afternoon' | 'evening') => void
+  openAddModal: (date?: string, period?: 'morning' | 'afternoon' | 'evening', startTime?: string) => void
   openEditModal: (event: CalendarEvent) => void
   closeModal: () => void
 }
@@ -33,11 +34,12 @@ export const useCalendarStore = create<CalendarState>((set) => ({
   viewMode: 'month',
   selectedDate: todayStr(),
   currentMonth: today,
-  weekStart: startOfWeek(today, { weekStartsOn: 1 }),
+  weekStart: startOfWeek(today, { weekStartsOn: 0 }),
   editingEvent: null,
   modalOpen: false,
   modalDefaultDate: null,
   modalDefaultPeriod: null,
+  modalDefaultStartTime: null,
 
   setViewMode: (mode) => set({ viewMode: mode }),
 
@@ -48,7 +50,7 @@ export const useCalendarStore = create<CalendarState>((set) => ({
     set({
       selectedDate: formatDate(now),
       currentMonth: now,
-      weekStart: startOfWeek(now, { weekStartsOn: 1 }),
+      weekStart: startOfWeek(now, { weekStartsOn: 0 }),
     })
   },
 
@@ -57,21 +59,22 @@ export const useCalendarStore = create<CalendarState>((set) => ({
 
   prevWeek: () => set((s) => ({
     weekStart: subWeeks(s.weekStart, 1),
-    selectedDate: formatDate(subWeeks(startOfWeek(new Date(s.selectedDate), { weekStartsOn: 1 }), 1)),
+    selectedDate: formatDate(subWeeks(startOfWeek(new Date(s.selectedDate), { weekStartsOn: 0 }), 1)),
   })),
   nextWeek: () => set((s) => ({
     weekStart: addWeeks(s.weekStart, 1),
-    selectedDate: formatDate(addWeeks(startOfWeek(new Date(s.selectedDate), { weekStartsOn: 1 }), 1)),
+    selectedDate: formatDate(addWeeks(startOfWeek(new Date(s.selectedDate), { weekStartsOn: 0 }), 1)),
   })),
 
   prevDay: () => set((s) => ({ selectedDate: formatDate(subDays(new Date(s.selectedDate), 1)) })),
   nextDay: () => set((s) => ({ selectedDate: formatDate(addDays(new Date(s.selectedDate), 1)) })),
 
-  openAddModal: (date, period) => set({
+  openAddModal: (date, period, startTime) => set({
     editingEvent: null,
     modalOpen: true,
     modalDefaultDate: date ?? null,
     modalDefaultPeriod: period ?? null,
+    modalDefaultStartTime: startTime ?? null,
   }),
 
   openEditModal: (event) => set({
@@ -86,5 +89,6 @@ export const useCalendarStore = create<CalendarState>((set) => ({
     editingEvent: null,
     modalDefaultDate: null,
     modalDefaultPeriod: null,
+    modalDefaultStartTime: null,
   }),
 }))

@@ -12,7 +12,7 @@ const PERIODS: { value: Period; label: string; icon: string }[] = [
 ]
 
 export function EventModal() {
-  const { modalOpen, editingEvent, modalDefaultDate, modalDefaultPeriod, closeModal } = useCalendarStore()
+  const { modalOpen, editingEvent, modalDefaultDate, modalDefaultPeriod, modalDefaultStartTime, closeModal } = useCalendarStore()
   const { addEvent, updateEvent, deleteEvent } = useEventStore()
 
   const [title, setTitle] = useState('')
@@ -38,8 +38,16 @@ export function EventModal() {
       setReminderMinutes(editingEvent.reminder?.minutesBefore ?? null)
     } else {
       setTitle(''); setDate(modalDefaultDate || todayStr())
-      const s = modalDefaultPeriod === 'afternoon' ? '13:00' : modalDefaultPeriod === 'evening' ? '19:00' : '09:00'
-      const e = modalDefaultPeriod === 'afternoon' ? '14:00' : modalDefaultPeriod === 'evening' ? '20:00' : '10:00'
+      let s: string, e: string
+      if (modalDefaultStartTime) {
+        s = modalDefaultStartTime
+        const [hh, mm] = s.split(':').map(Number)
+        const endMin = hh * 60 + mm + 60
+        e = `${String(Math.floor(endMin / 60) % 24).padStart(2, '0')}:${String(endMin % 60).padStart(2, '0')}`
+      } else {
+        s = modalDefaultPeriod === 'afternoon' ? '13:00' : modalDefaultPeriod === 'evening' ? '19:00' : '09:00'
+        e = modalDefaultPeriod === 'afternoon' ? '14:00' : modalDefaultPeriod === 'evening' ? '20:00' : '10:00'
+      }
       setStartTime(s); setEndTime(e)
       setPeriod(modalDefaultPeriod || 'morning'); setColor(DEFAULT_EVENT_COLOR)
       setDescription(''); setReminderMinutes(null)
